@@ -1,7 +1,7 @@
 package servlets;
 
-import jdbc.DBConnectService;
-import jdbc.DBService;
+import jdbc.dao.UserService;
+import jdbc.dao.UserServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -14,11 +14,11 @@ import java.io.IOException;
 @WebServlet("/")
 public class MainPageServlet extends HttpServlet {
     private static final String LIST_USER = "/listUser.jsp";
-    private DBService service;
+    private UserService service;
 
     public MainPageServlet() {
         super();
-        this.service = new DBService(DBConnectService.getMysqlConnection());
+        this.service = UserServiceImpl.getInstance();
     }
 
     @Override

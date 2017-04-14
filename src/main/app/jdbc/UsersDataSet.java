@@ -1,12 +1,25 @@
 package jdbc;
 
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class UsersDataSet {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "user_name", updatable = false)
     private String name;
+
+    @Column(name = "last_name")
     private String last_name;
+
+    @Column(name = "password")
     private String password;
 
     public UsersDataSet(long id, String name, String last_name, String password) {
@@ -23,7 +36,6 @@ public class UsersDataSet {
     }
 
     public UsersDataSet(){
-
     }
 
     public long getId() {

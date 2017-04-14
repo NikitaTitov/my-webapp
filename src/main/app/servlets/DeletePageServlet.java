@@ -3,6 +3,8 @@ package servlets;
 
 import jdbc.DBConnectService;
 import jdbc.DBService;
+import jdbc.dao.UserService;
+import jdbc.dao.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,11 +17,11 @@ import java.io.IOException;
 @WebServlet("/delete")
 public class DeletePageServlet extends HttpServlet {
     private static final String BASE_PAGE = "/";
-    private DBService service;
+    private UserService service;
 
     public DeletePageServlet() {
         super();
-        this.service = new DBService(DBConnectService.getMysqlConnection());
+        this.service = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -27,9 +29,7 @@ public class DeletePageServlet extends HttpServlet {
         String userId = req.getParameter("id");
         service.deleteUser(Long.parseLong(userId));
 
-        req.setAttribute("users", service.getAllUsers());
-        RequestDispatcher view = req.getRequestDispatcher(BASE_PAGE);
-        view.forward(req, resp);
+        resp.sendRedirect(BASE_PAGE);
     }
 }
 

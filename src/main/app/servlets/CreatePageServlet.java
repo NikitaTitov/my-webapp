@@ -1,9 +1,9 @@
 package servlets;
 
 
-import jdbc.DBConnectService;
-import jdbc.DBService;
 import jdbc.UsersDataSet;
+import jdbc.dao.UserService;
+import jdbc.dao.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,11 +17,11 @@ import java.io.IOException;
 public class CreatePageServlet extends HttpServlet{
     private static final String INSERT_OR_EDIT = "/user.jsp";
     private static final String BASE_PAGE = "/";
-    private DBService service;
+    private UserService service;
 
     public CreatePageServlet() {
         super();
-        this.service = new DBService(DBConnectService.getMysqlConnection());
+        this.service = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CreatePageServlet extends HttpServlet{
         String password = req.getParameter("password");
         user = new UsersDataSet(name, secondName, password);
 
-        service.addUser(user);
+        service.insertUser(user);
 
         resp.sendRedirect(BASE_PAGE);
     }

@@ -1,9 +1,9 @@
 package servlets;
 
 
-import jdbc.DBConnectService;
-import jdbc.DBService;
 import jdbc.UsersDataSet;
+import jdbc.dao.UserService;
+import jdbc.dao.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,11 +16,11 @@ import java.io.IOException;
 public class UpdatePageServlet extends MainPageServlet {
     private static final String INSERT_OR_EDIT = "/user.jsp";
     private static final String BASE_PAGE = "/";
-    private DBService service;
+    private UserService service;
 
     public UpdatePageServlet() {
         super();
-        this.service = new DBService(DBConnectService.getMysqlConnection());
+        this.service = UserServiceImpl.getInstance();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UpdatePageServlet extends MainPageServlet {
         UsersDataSet user;
         String userId = req.getParameter("id");
 
-        user = service.getUser(Long.parseLong(userId));
+        user = service.getUserById(Long.parseLong(userId));
 
         req.setAttribute("user", user);
         RequestDispatcher view = req.getRequestDispatcher(INSERT_OR_EDIT);
@@ -45,7 +45,7 @@ public class UpdatePageServlet extends MainPageServlet {
         user = new UsersDataSet(name, secondName, password);
 
         user.setId(Long.parseLong(userId));
-        service.updateUser(user);
+        service.updateUserData(user);
 
         resp.sendRedirect(BASE_PAGE);
     }
