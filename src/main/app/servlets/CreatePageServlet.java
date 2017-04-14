@@ -2,8 +2,8 @@ package servlets;
 
 
 import jdbc.UsersDataSet;
-import jdbc.dao.UserService;
-import jdbc.dao.UserServiceImpl;
+import jdbc.service.UserService;
+import jdbc.service.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

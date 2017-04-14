@@ -1,12 +1,9 @@
 package servlets;
 
 
-import jdbc.DBConnectService;
-import jdbc.DBService;
-import jdbc.dao.UserService;
-import jdbc.dao.UserServiceImpl;
+import jdbc.service.UserService;
+import jdbc.service.UserServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

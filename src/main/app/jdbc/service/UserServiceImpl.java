@@ -1,7 +1,9 @@
-package jdbc.dao;
+package jdbc.service;
 
 
 import jdbc.UsersDataSet;
+import jdbc.dao.UserDAO;
+import jdbc.dao.UserDaoFactory;
 
 import java.util.List;
 

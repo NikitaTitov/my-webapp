@@ -1,4 +1,4 @@
-package jdbc.dao;
+package jdbc.service;
 
 
 import jdbc.UsersDataSet;
