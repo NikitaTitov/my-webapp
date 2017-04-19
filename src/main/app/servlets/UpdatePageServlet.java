@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/update")
-public class UpdatePageServlet extends MainPageServlet {
+@WebServlet("/admin/update")
+public class UpdatePageServlet extends AdminPageServlet {
     private static final String INSERT_OR_EDIT = "/user.jsp";
-    private static final String BASE_PAGE = "/";
+    private static final String BASE_PAGE = "/admin/listUsers";
     private UserService service;
 
     public UpdatePageServlet() {
@@ -42,7 +42,8 @@ public class UpdatePageServlet extends MainPageServlet {
         String name = req.getParameter("user_name");
         String secondName = req.getParameter("last_name");
         String password = req.getParameter("password");
-        user = new UsersDataSet(name, secondName, password);
+        String right = req.getParameter("user_right");
+        user = new UsersDataSet(name, secondName, password, right);
 
         user.setId(Long.parseLong(userId));
         service.updateUserData(user);

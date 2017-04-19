@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delete")
+@WebServlet("/admin/delete")
 public class DeletePageServlet extends HttpServlet {
-    private static final String BASE_PAGE = "/";
+    private static final String BASE_PAGE = "/admin/listUsers";
     private UserService service;
 
     public DeletePageServlet() {

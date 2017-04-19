@@ -55,7 +55,8 @@ public class Executor {
                     result.getLong("id"),
                     result.getString("user_name"),
                     result.getString("last_name"),
-                    result.getString("password"));
+                    result.getString("password"),
+                    result.getString("user_right"));
             users.add(user);
         }
 

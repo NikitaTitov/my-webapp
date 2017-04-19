@@ -18,10 +18,13 @@
         value="<c:out value="${user.name}" />" /> <br />
   Last Name : <input
         type="text" name="last_name"
-        value="<c:out value="${user.last_name}" />" /> <br />
+        value="<c:out value="${user.lastName}" />" /> <br />
     Password : <input
         type="text" name="password"
         value="<c:out value="${user.password}" />" /> <br />
+    User right : <input
+        type="text" name="user_right"
+        value="<c:out value="${user.userRight}" />" /> <br />
     <input
             type="submit" value="Submit" />
 </form>

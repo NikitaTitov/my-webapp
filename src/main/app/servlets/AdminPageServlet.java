@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
-public class MainPageServlet extends HttpServlet {
+@WebServlet("/admin/listUsers")
+public class AdminPageServlet extends HttpServlet {
     private static final String LIST_USER = "/listUser.jsp";
     private UserService service;
 
-    public MainPageServlet() {
+    public AdminPageServlet() {
         super();
         this.service = UserServiceImpl.getInstance();
     }

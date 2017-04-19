@@ -9,6 +9,8 @@ public interface UserService {
 
     UsersDataSet getUserById(long id);
 
+    UsersDataSet getUser(String userName, String password);
+
     List<UsersDataSet> getAllUsers ();
 
     void insertUser(UsersDataSet user);

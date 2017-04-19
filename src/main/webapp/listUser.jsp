@@ -15,6 +15,7 @@
     <th>User Id</th>
     <th>First Name</th>
     <th>Last Name</th>
+    <th>User Right</th>
     <th colspan=2>Action</th>
   </tr>
   </thead>
@@ -23,13 +24,14 @@
     <tr>
       <td><c:out value="${user.id}" /></td>
       <td><c:out value="${user.name}" /></td>
-      <td><c:out value="${user.last_name}" /></td>
-      <td><a href="/update?id=<c:out value="${user.id}"/>">Update</a></td>
-      <td><a href="/delete?id=<c:out value="${user.id}"/>">Delete</a></td>
+      <td><c:out value="${user.lastName}" /></td>
+      <td><c:out value="${user.userRight}" /></td>
+      <td><a href="/admin/update?id=<c:out value="${user.id}"/>">Update</a></td>
+      <td><a href="/admin/delete?id=<c:out value="${user.id}"/>">Delete</a></td>
     </tr>
   </c:forEach>
   </tbody>
 </table>
-<p><a href="/create">Add User</a></p>
+<p><a href="/admin/create">Add User</a></p>
 </body>
 </html>

@@ -15,12 +15,17 @@ public class UserDaoJDBC implements UserDAO {
     public UserDaoJDBC(Connection connection) {
         this.executor = new Executor(connection);
     }
-
+    @Override
     public UsersDataSet getUserById(long id) {
         try {
             return executor.execQuery("select * from users where id=" + id, result -> {
                 result.next();
-                return new UsersDataSet(id, result.getString(2), result.getString(3), result.getString(4));
+                return new UsersDataSet(
+                        id,
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5));
             });
         } catch (SQLException e) {
             e.printStackTrace();
@@ -28,6 +33,35 @@ public class UserDaoJDBC implements UserDAO {
         return new UsersDataSet();
     }
 
+    @Override
+    public UsersDataSet getUser(String userName, String password) {
+        StringBuilder query = new StringBuilder();
+        query.
+                append("select * from users where user_name=").
+                append("'").
+                append(userName).
+                append("'").
+                append(" and ").
+                append("password=").
+                append("'").
+                append(password).
+                append("'");
+        try {
+            return executor.execQuery(query.toString(), result -> {
+                result.next();
+                return new UsersDataSet(
+                        result.getLong(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5));
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new UsersDataSet();
+    }
+    @Override
     public List<UsersDataSet> getAllUsers () {
         try {
             return executor.execQuery("select * from users");
@@ -36,16 +70,18 @@ public class UserDaoJDBC implements UserDAO {
         }
         return Collections.EMPTY_LIST;
     }
-
+    @Override
     public void insertUser(UsersDataSet user) {
         StringBuilder query = new StringBuilder();
         query.
-                append("insert into users (user_name,last_name,password) values ('").  //start query
+                append("insert into users (user_name,last_name,password,user_right) values ('").
                 append(user.getName()).
                 append("','").
-                append(user.getLast_name()).
+                append(user.getLastName()).
                 append("','").
                 append(user.getPassword()).
+                append("','").
+                append(user.getUserRight()).
                 append("')");
         try {
             executor.execUpdate(query.toString());
@@ -53,7 +89,7 @@ public class UserDaoJDBC implements UserDAO {
             e.printStackTrace();
         }
     }
-
+    @Override
     public void updateUserData(UsersDataSet user) {
         StringBuilder query = new StringBuilder();
         query.append("update users set ").
@@ -64,7 +100,12 @@ public class UserDaoJDBC implements UserDAO {
                 append(", ").
                 append("last_name=").
                 append("'").
-                append(user.getLast_name()).
+                append(user.getLastName()).
+                append("'").
+                append(", ").
+                append("user_right=").
+                append("'").
+                append(user.getUserRight()).
                 append("'").
                 append(" where id=").
                 append(user.getId());
@@ -75,7 +116,7 @@ public class UserDaoJDBC implements UserDAO {
             e.printStackTrace();
         }
     }
-
+    @Override
     public void deleteUser(long id) {
         try {
             executor.execUpdate("delete from users where id=" + id);

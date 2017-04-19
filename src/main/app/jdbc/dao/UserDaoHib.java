@@ -25,11 +25,30 @@ private final SessionFactory sessionFactory;
     }
 
     @Override
+    public UsersDataSet getUser(String userName, String password) {
+        StringBuilder query = new StringBuilder();
+        query.
+                append("select * from users where user_name=").
+                append("'").
+                append(userName).
+                append("'").
+                append(" and ").
+                append("password=").
+                append("'").
+                append(password.hashCode()).
+                append("'");
+        Session session = sessionFactory.openSession();
+        Query hql = session.createQuery(query.toString());
+        UsersDataSet user = (UsersDataSet) hql.uniqueResult();
+        return user;
+    }
+
+    @Override
     public List<UsersDataSet> getAllUsers() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from jdbc.UsersDataSet");
-        List<UsersDataSet> result = query.list();
+        Query hql = session.createQuery("from jdbc.UsersDataSet");
+        List<UsersDataSet> result = hql.list();
         transaction.commit();
         session.close();
         return result;
@@ -57,7 +76,12 @@ private final SessionFactory sessionFactory;
                 append(", ").
                 append("last_name=").
                 append("'").
-                append(user.getLast_name()).
+                append(user.getLastName()).
+                append("'").
+                append(", ").
+                append("user_right=").
+                append("'").
+                append(user.getUserRight()).
                 append("'").
                 append(" where id=").
                 append(user.getId());
@@ -74,8 +98,6 @@ private final SessionFactory sessionFactory;
         String query = "delete from jdbc.UsersDataSet where id = "+id;
         Query hql = session.createQuery(query);
         hql.executeUpdate();
-        //UsersDataSet user = getUserById(id);
-        //session.delete(user);
         transaction.commit();
         session.close();
     }

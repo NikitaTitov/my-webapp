@@ -14,7 +14,7 @@ public class UsersDataSet {
     private long id;
 
     @Column(name = "user_name", updatable = false)
-    private String name;
+    private String user_name;
 
     @Column(name = "last_name")
     private String last_name;
@@ -22,15 +22,20 @@ public class UsersDataSet {
     @Column(name = "password")
     private String password;
 
-    public UsersDataSet(long id, String name, String last_name, String password) {
+    @Column(name = "user_right")
+    private String user_right;
+
+    public UsersDataSet(long id, String user_name, String last_name, String password, String user_right) {
         this.id = id;
-        this.name = name;
+        this.user_name = user_name;
         this.last_name = last_name;
         this.password = password;
+        this.user_right = user_right;
     }
 
-    public UsersDataSet(String name, String last_name, String password) {
-        this.name = name;
+    public UsersDataSet(String user_name, String last_name, String password, String user_right) {
+        this.user_right = user_right;
+        this.user_name = user_name;
         this.last_name = last_name;
         this.password = password;
     }
@@ -47,10 +52,10 @@ public class UsersDataSet {
     }
 
     public String getName() {
-        return name;
+        return user_name;
     }
 
-    public String getLast_name() {
+    public String getLastName() {
         return last_name;
     }
 
@@ -58,25 +63,27 @@ public class UsersDataSet {
         return password.hashCode();
     }
 
+    public String getUserRight() {return user_right;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersDataSet that = (UsersDataSet) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
+                Objects.equals(user_name, that.user_name) &&
                 Objects.equals(last_name, that.last_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, last_name);
+        return Objects.hash(id, user_name, last_name);
     }
 
     @Override
     public String toString() {
         return "UsersDataSet{" +
-                "name='" + name + '\'' +
+                "user_name='" + user_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
